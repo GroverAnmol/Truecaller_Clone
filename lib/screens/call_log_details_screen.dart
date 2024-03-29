@@ -1,8 +1,8 @@
 import 'package:call_log/call_log.dart';
 import 'package:untitled35/helpers.dart';
-import 'package:untitled35/widgets/detailsScreenWidget/call_log_list.dart';
-import 'package:untitled35/widgets/detailsScreenWidget/call_section.dart';
-import 'package:untitled35/widgets/detailsScreenWidget/header.dart';
+import 'package:untitled35/widgets/callLogDetailsScreenWidget/call_log_list.dart';
+import 'package:untitled35/widgets/callLogDetailsScreenWidget/call_section.dart';
+import 'package:untitled35/widgets/callLogDetailsScreenWidget/header.dart';
 import 'package:flutter/material.dart';
 
 class CallLogDetailsScreen extends StatefulWidget {

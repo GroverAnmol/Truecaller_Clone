@@ -54,20 +54,57 @@ class CallSection extends StatelessWidget {
             ],
           ),
           const SizedBox(
-            width: 80,
+            width: 8,
           ),
-          IconButton(
-            onPressed: () {
-              callNumber(callLog.number.toString());
-            },
-            icon: CircleAvatar(
-              backgroundColor: Colors.green[100],
-              child: Icon(
-                Icons.call,
-                color: Colors.green[500],
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              IconButton(
+                onPressed: () {
+                  if (callLog != "" ) {
+                    callNumber(callLog.number!.toString());
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('No Number is available to call'),
+                      ),
+                    );
+                  }
+                },
+                icon: const Icon(
+                  Icons.call,
+                  color: Colors.green,
+                ),
               ),
-            ),
-          )
+              IconButton(
+                onPressed: () async {
+                  final Uri url = Uri(
+                    scheme: 'sms',
+                    path: "${(callLog.number!.toString())}",
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+                icon: const Icon(
+                  Icons.message,
+                  color: Colors.green,
+                ),
+              ),
+              IconButton(
+                onPressed: () {
+
+                },
+                icon: const Icon(
+                  Icons.block,
+                  color: Colors.green,
+                ),
+              ),
+            ],
+          ),
+
         ],
       ),
     );

@@ -2,6 +2,7 @@ import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import'package:contacts_service/contacts_service.dart';
 
 callNumber(String number) async {
   await FlutterPhoneDirectCaller.callNumber(number);
@@ -21,6 +22,17 @@ Future<Iterable<CallLogEntry>> getCurrentCallLogs(CallLogEntry callLog) async {
 
   return entries;
 }
+Future<List<Contact>> getCurrentContact(Contact contact) async {
+  var now = DateTime.now();
+  int to = now.millisecondsSinceEpoch;
+  List<Contact> contacts = await ContactsService.getContactsForPhone(
+    contact.phones as String?
+  );
+
+
+  return contacts;
+}
+
 
 String getTitle(CallLogEntry entry) {
   if (entry.name == null) return entry.number!;

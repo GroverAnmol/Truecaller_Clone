@@ -1,6 +1,10 @@
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:untitled35/widgets/contacts_item.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:call_log/call_log.dart';
+
+import '../widgets/drawer.dart';
 
 class ContactsScreen extends StatefulWidget {
   const ContactsScreen({super.key});
@@ -10,6 +14,7 @@ class ContactsScreen extends StatefulWidget {
 }
 
 class _ContactsScreenState extends State<ContactsScreen> {
+  late final CallLogEntry? callLogEntry;
   List<Contact> allContacts = [];
   List<Contact> filteredAllContacts = [];
   final TextEditingController _searchController = TextEditingController();
@@ -48,12 +53,16 @@ class _ContactsScreenState extends State<ContactsScreen> {
       });
     }
   }
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
 
   @override
   Widget build(BuildContext context) {
     bool isSearching = _searchController.text.isNotEmpty;
 
     return Scaffold(
+      key: _scaffoldKey,
+        drawer: DrawerWid(),
       appBar: AppBar(
         title: const Text('Contacts'),
       ),
@@ -84,6 +93,7 @@ class _ContactsScreenState extends State<ContactsScreen> {
                     ? filteredAllContacts.length
                     : allContacts.length,
                 itemBuilder: (context, index) => ContactsItem(
+                  currentCallLog: null,
                     currentContact: isSearching == true
                         ? filteredAllContacts[index]
                         : allContacts[index]),
