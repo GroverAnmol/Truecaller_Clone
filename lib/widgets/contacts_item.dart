@@ -1,46 +1,52 @@
-import 'package:untitled35/helpers.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:contacts_service/contacts_service.dart';
+
+import '../helpers.dart';
 
 class ContactsItem extends StatelessWidget {
-  const ContactsItem({super.key, required this.currentContact});
+  const ContactsItem({Key? key, required this.currentContact});
 
-  final Contact currentContact;
+  final Contact? currentContact;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
         child: Text(
-          currentContact.displayName!.trim().substring(0, 2),
-          style: Theme.of(context).textTheme.titleMedium!.copyWith(
+          (currentContact?.displayName?.trim().length ?? 0) >= 2
+              ? currentContact?.displayName?.trim().substring(0, 2) ?? ""
+              : currentContact?.displayName?.trim() ?? "",
+          style: Theme.of(context).textTheme.titleMedium?.copyWith(
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
       ),
       title: Text(
-        currentContact.displayName!,
+        currentContact?.displayName ?? "",
         style: Theme.of(context).textTheme.bodyLarge,
       ),
       subtitle: Text(
-        currentContact.phones!.isEmpty
+        currentContact?.phones?.isEmpty ?? true
             ? 'No Number'
-            : currentContact.phones!.elementAt(0).value.toString(),
+            : currentContact?.phones?.elementAt(0).value.toString() ??
+            'No Number',
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing: IconButton(
         onPressed: () {
-          currentContact.phones!.isNotEmpty
-              ? callNumber(currentContact.phones!.elementAt(0).value.toString())
-              : ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('No Number is available to call'),
-            ),
-          );
+          if (currentContact?.phones?.isNotEmpty ?? false) {
+            callNumber(currentContact!.phones!.elementAt(0).value.toString());
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('No Number is available to call'),
+              ),
+            );
+          }
         },
-        icon: Icon(
+        icon: const Icon(
           Icons.call,
-          color: Colors.green[500],
+          color: Colors.green,
         ),
       ),
     );
