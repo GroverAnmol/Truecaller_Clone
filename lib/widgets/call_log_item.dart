@@ -24,11 +24,20 @@ class CallLogItem extends StatelessWidget {
         ),
       ),
       title: Padding(
-        padding: const EdgeInsets.only(bottom: 2),
-        child: Text(
-          getTitle(currentCallLog),
-          style: Theme.of(context).textTheme.bodyLarge,
-        ),
+          padding: const EdgeInsets.only(bottom: 2),
+          child: currentCallLog.name == null || currentCallLog.name!.isEmpty ? GestureDetector(
+            onTap: (){
+              onClickInfo;
+            },
+            child: Text(
+              "${currentCallLog.number}",style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ):
+          GestureDetector(
+              onTap: (){
+                onClickInfo;
+              },
+              child: Text("${currentCallLog.name}",style: Theme.of(context).textTheme.bodyLarge,))
       ),
       subtitle: Row(
         mainAxisSize: MainAxisSize.min,
