@@ -1,4 +1,5 @@
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled35/custom_colors.dart';
 import 'package:untitled35/widgets/contacts_item.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
@@ -60,46 +61,49 @@ class _ContactsScreenState extends State<ContactsScreen> {
   Widget build(BuildContext context) {
     bool isSearching = _searchController.text.isNotEmpty;
 
-    return Scaffold(
-      key: _scaffoldKey,
-        drawer: DrawerWid(),
-      appBar: AppBar(
-        title: const Text('Contacts'),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            TextField(
-              controller: _searchController,
-              decoration: InputDecoration(
-                label: Text(
-                  'Search',
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-                border: OutlineInputBorder(
-                  borderSide:
-                  BorderSide(color: Theme.of(context).colorScheme.primary),
-                ),
-                prefixIcon: Icon(
-                  Icons.search,
-                  color: Theme.of(context).colorScheme.primary,
+    return SafeArea(
+      child: Scaffold(
+        key: _scaffoldKey,
+          drawer: DrawerWid(),
+        appBar: AppBar(
+          backgroundColor: Color(appBarColor),
+          title: const Text('Contacts'),
+        ),
+        body: Container(
+          padding: const EdgeInsets.all(15),
+          child: Column(
+            children: [
+              TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  label: Text(
+                    'Search',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  border: OutlineInputBorder(
+                    borderSide:
+                    BorderSide(color: Theme.of(context).colorScheme.primary),
+                  ),
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
                 ),
               ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: isSearching == true
-                    ? filteredAllContacts.length
-                    : allContacts.length,
-                itemBuilder: (context, index) => ContactsItem(
-                  currentCallLog: null,
-                    currentContact: isSearching == true
-                        ? filteredAllContacts[index]
-                        : allContacts[index]),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: isSearching == true
+                      ? filteredAllContacts.length
+                      : allContacts.length,
+                  itemBuilder: (context, index) => ContactsItem(
+                    currentCallLog: null,
+                      currentContact: isSearching == true
+                          ? filteredAllContacts[index]
+                          : allContacts[index]),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

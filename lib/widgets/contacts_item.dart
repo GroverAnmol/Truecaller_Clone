@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:untitled35/custom_colors.dart';
 import 'package:untitled35/screens/call_log_details_screen.dart';
 import 'package:untitled35/widgets/call_log_item.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -17,12 +18,13 @@ class ContactsItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
+        backgroundColor: Color(circleAvatarColor),
         child: Text(
-          (currentContact?.displayName?.trim().length ?? 0) >= 2
-              ? currentContact?.displayName?.trim().substring(0, 2) ?? ""
-              : currentContact?.displayName?.trim() ?? "",
+          currentContact!.initials(),
           style: Theme.of(context).textTheme.titleMedium?.copyWith(
-            color: Theme.of(context).colorScheme.primary,
+            color:Colors.black,
+              fontWeight: FontWeight.w300
+
           ),
         ),
       ),
@@ -38,31 +40,19 @@ class ContactsItem extends StatelessWidget {
         style: Theme.of(context).textTheme.bodyMedium,
       ),
       trailing:PopupMenuButton(
+        color: Color(threeDotBGColor),
         itemBuilder: (context)=>[
-          PopupMenuItem(child: ListTile(
-            leading: IconButton(
-              onPressed: () {
-                if (currentCallLog != "" ) {
-                  callNumber(currentCallLog!.number!.toString());
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text('No Number is available to call'),
-                    ),
-                  );
-                }
-              },
-              icon: const Icon(
-                Icons.call,
-                color: Colors.green,
-              ),
-            ),)),
-          PopupMenuItem(child: ListTile(
-            leading: IconButton(
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading: Text("Call",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              )),trailing:  IconButton(
               onPressed: () async {
                 final Uri url = Uri(
-                  scheme: 'sms',
-                  path: "${(currentCallLog!.number!.toString())}",
+                  scheme: 'tel',
+                  path: currentContact?.phones?.elementAt(0).value.toString(),
                 );
                 if (await canLaunchUrl(url)){
                   await launchUrl(url);
@@ -70,35 +60,73 @@ class ContactsItem extends StatelessWidget {
                   print('cannot launch');
                 }
               },
-              icon: const Icon(
-                Icons.message,
-                color: Colors.green,
-              ),
-            ),)),
-          PopupMenuItem(child: ListTile(
-            leading: IconButton(
-              onPressed: () {
+                icon: const Icon(
+                  Icons.call,
+                  color:  Colors.white,
+                ),
+              ),),
+          )),
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("SMS",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              )),trailing: IconButton(
+                onPressed: () async {
+                  final Uri url = Uri(
+                    scheme: 'sms',
+                    path: currentContact?.phones?.elementAt(0).value.toString(),
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+                icon: const Icon(
+                  Icons.message,
+                  color:  Colors.white,
+                ),
+              ),),
+          )),
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("Block",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              )),trailing: IconButton(
+                onPressed: () {
 
-              },
-              icon: const Icon(
-                Icons.block,
-                color: Colors.green,
-              ),
-            ),)),
-          PopupMenuItem(child: ListTile(
-            leading: IconButton(
-              onPressed: () {
+                },
+                icon: const Icon(
+                  Icons.block,
+                  color:  Colors.white,
+                ),
+              ),),
+          )),
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("Details",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              )),trailing: IconButton(
+                onPressed: () {
 
-              },
-              icon: const Icon(
-                Icons.info_outline_rounded,
-                color: Colors.green,
-              ),
-            ),)),
+                },
+                icon: const Icon(
+                  Icons.info_outline_rounded,
+                  color:  Colors.white,
+                ),
+              ),),
+          )),
 
         ],
         child: Icon(Icons.more_vert,
-          color: Colors.grey,),
+          color:  Color(threeDotColor),
+        ),
       ),
     );
   }

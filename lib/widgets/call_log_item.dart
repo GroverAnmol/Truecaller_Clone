@@ -1,3 +1,4 @@
+import 'package:untitled35/custom_colors.dart';
 import 'package:untitled35/helpers.dart';
 import 'package:call_log/call_log.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,14 @@ class CallLogItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: CircleAvatar(
+        backgroundColor: Color(circleAvatarColor),
         radius: 24,
         child: Text(
           getAvatorTitle(currentCallLog!),
           style: Theme.of(context).textTheme.titleMedium!.copyWith(
-            color: Theme.of(context).colorScheme.primary,
+              color:Colors.black,
+              fontWeight: FontWeight.w300
+
           ),
         ),
       ),
@@ -54,60 +58,115 @@ class CallLogItem extends StatelessWidget {
           Text(
             formatDate(currentCallLog!.timestamp!),
             style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 11
+                fontWeight: FontWeight.bold,
+                fontSize: 11
             ),
           )
         ],
       ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          IconButton(
-            onPressed: () {
-              if (currentCallLog != "" ) {
-                callNumber(currentCallLog!.number!.toString());
-              } else {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text('No Number is available to call'),
-                  ),
+      trailing:PopupMenuButton(
+        color :  Color(threeDotBGColor),
+        itemBuilder: (context)=>[
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading: Text("Call",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              ),),trailing:  IconButton(
+              onPressed: () async {
+                final Uri url = Uri(
+                  scheme: 'tel',
+                  path: "${(currentCallLog!.number!.toString())}",
                 );
-              }
-            },
-            icon: const Icon(
-              Icons.call,
-              color: Colors.green,
-            ),
-          ),
-          IconButton(
-            onPressed: () async {
-              final Uri url = Uri(
-                scheme: 'sms',
-                path: "${(currentCallLog!.number!.toString())}",
-              );
-              if (await canLaunchUrl(url)){
-                await launchUrl(url);
-              }else{
-                print('cannot launch');
-              }
-            },
-            icon: const Icon(
-              Icons.message,
-              color: Colors.green,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
+                if (await canLaunchUrl(url)){
+                  await launchUrl(url);
+                }else{
+                  print('cannot launch');
+                }
+              },
+              icon: const Icon(
+                Icons.call,
+                color:  Colors.white,
+              ),
+            ),),
+          )),
+          PopupMenuItem(child: Padding(
+    padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("SMS",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              ),),trailing: IconButton(
+              onPressed: () async {
+                final Uri url = Uri(
+                  scheme: 'sms',
+                  path: "${(currentCallLog!.number!.toString())}",
+                );
+                if (await canLaunchUrl(url)){
+                  await launchUrl(url);
+                }else{
+                  print('cannot launch');
+                }
+              },
+              icon: const Icon(
+                Icons.message,
+                color:  Colors.white,
+              ),
+            ),),
+          )),
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("Block",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              ),),trailing: IconButton(
+              onPressed: () {
 
-            },
-            icon: const Icon(
-              Icons.block,
-              color: Colors.green,
-            ),
-          ),
+              },
+              icon: const Icon(
+                Icons.block,
+                color:  Colors.white,
+              ),
+            ),),
+          )),
+          PopupMenuItem(child: Padding(
+            padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
+            child: ListTile(
+              leading:Text("Details",style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w300
+              ),),trailing: IconButton(
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return CallLogDetailsScreen(callLog: currentCallLog!);
+                }));
+              },
+              icon: const Icon(
+                Icons.info_outline_rounded,
+                color:  Colors.white,
+              ),
+            ),),
+          )),
+
         ],
+        child: Icon(Icons.more_vert,
+          color:  Color(threeDotColor),
+        ),
       ),
     );
   }
 }
+
+//            onPressed: () {
+//               if (currentCallLog != "" ) {
+//                 callNumber(currentCallLog!.number!.toString());
+//               } else {
+//                 ScaffoldMessenger.of(context).showSnackBar(
+//                   const SnackBar(
+//                     content: Text('No Number is available to call'),
+//                   ),
+//                 );
+//               }
+//             },

@@ -44,9 +44,15 @@ String getTitle(CallLogEntry entry) {
 }
 
 String getAvatorTitle(CallLogEntry entry) {
-  String title =
-  getTitle(entry).replaceAll("+", '').replaceAll(" ", '').substring(0, 2);
-  return title;
+  String? fullName = entry.name ?? entry.number;
+  List<String> words = fullName!.split(' ');
+  String initials = '';
+  for (String word in words) {
+    initials += word[0];
+  }
+  return initials.toUpperCase();
+
+
 }
 
 Icon getCallTypeIcon(CallType callType) {
