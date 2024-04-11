@@ -142,6 +142,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_dtmf:
+    dependency: "direct main"
+    description:
+      name: flutter_dtmf
+      sha256: "355f0d476c204757f759caeaa65d50df91337924c0b14548f7b731a5c562f73e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.2"
   flutter_launcher_icons:
     dependency: "direct main"
     description:
@@ -158,6 +166,15 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.2"
+  flutter_masked_text2:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: "156f63b77d23148d9f1544230e3201ab6172f470"
+      resolved-ref: "156f63b77d23148d9f1544230e3201ab6172f470"
+      url: "https://github.com/cybex-dev/flutter_masked_text"
+    source: git
+    version: "0.9.1"
   flutter_native_splash:
     dependency: "direct main"
     description:

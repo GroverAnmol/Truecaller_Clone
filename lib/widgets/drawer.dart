@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:untitled35/custom_colors.dart';
 
 
 
@@ -11,6 +12,7 @@ class DrawerWid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: Color(threeDotBGColor),
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
@@ -38,7 +40,7 @@ class DrawerWid extends StatelessWidget {
               ],
               margin: EdgeInsets.only(top: 16.0,left: 8.0),
               decoration: BoxDecoration(
-                  color: Colors.white24
+                  color: Color(threeDotBGColor)
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.blue.shade50,
@@ -59,20 +61,16 @@ class DrawerWid extends StatelessWidget {
                   )),
             ),
             DrawerTile(
-                icon: Icon(Icons.coronavirus_outlined),
-                title: 'Covid Relief',
-                trailing: 'NEW'),
-            DrawerTile(
-                icon: Icon(Icons.auto_delete_outlined),
-                title: 'Inbox Cleaner',
-                trailing: 'NEW'),
-            DrawerTile(
                 icon: Icon(Icons.remove_red_eye_outlined),
                 title: 'Who viewed my profile',
                 trailing: '1'),
             DrawerTile(
-              icon: Icon(Icons.qr_code_scanner_outlined),
-              title: 'QR Scanner',
+              icon: Icon(Icons.shield_outlined),
+              title: 'Manage Blocking',
+            ),
+            DrawerTile(
+              icon: FaIcon(FontAwesomeIcons.solidHeart,color: Colors.blue,),
+              title: 'Finanicial News',
             ),
             DrawerTile(
                 icon: CircleAvatar(
@@ -81,24 +79,7 @@ class DrawerWid extends StatelessWidget {
                     child: FaIcon(FontAwesomeIcons.indianRupeeSign
                       ,color: Colors.white,size: 14.0,)),
                 title: 'Personal Loans'),
-            DrawerTile(
-              icon: Icon(Icons.notifications_outlined),
-              title: 'Notifications',
-              trailing: '1',
-            ),
-            DrawerTile(
-              icon: Icon(Icons.shield_outlined),
-              title: 'Manage Blocking',
-            ),
-            DrawerTile(
-              icon: FaIcon(FontAwesomeIcons.lifeRing),
-              title: 'Personal Safety',
-              trailing: 'NEW',
-            ),
-            DrawerTile(
-              icon: FaIcon(FontAwesomeIcons.solidHeart,color: Colors.blue,),
-              title: 'Truecaller News',
-            ),
+
             DrawerTile(
               icon: Icon(Icons.card_giftcard_outlined),
               title: 'Invite Friends',

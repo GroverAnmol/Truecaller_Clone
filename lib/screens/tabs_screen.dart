@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:untitled35/screens/contacts_screen.dart';
+import 'package:untitled35/screens/dial_screen.dart';
 import 'package:untitled35/screens/recent_call_log_screen.dart';
 
 class TabsScreen extends StatefulWidget {
@@ -21,8 +22,10 @@ class _TabsScreenState extends State<TabsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget activePage = const RecentsCallLogScreen();
+    Widget activePage = DialScreen();
     if (_selectedPageIndex == 1) {
+      activePage = const RecentsCallLogScreen();
+    } else if (_selectedPageIndex == 2){
       activePage = const ContactsScreen();
     }
 
@@ -32,6 +35,8 @@ class _TabsScreenState extends State<TabsScreen> {
         currentIndex: _selectedPageIndex,
         onTap: _selectPage,
         items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.apps), label: 'Dial'),
           BottomNavigationBarItem(
               icon: Icon(Icons.list_rounded), label: 'Recents'),
           BottomNavigationBarItem(
