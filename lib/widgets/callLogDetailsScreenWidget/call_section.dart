@@ -73,7 +73,7 @@ class CallSection extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.call,
-                  color: Colors.green,
+                  color: Colors.black
                 ),
               ),
               IconButton(
@@ -90,7 +90,7 @@ class CallSection extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.message,
-                  color: Colors.green,
+                  color: Colors.black,
                 ),
               ),
               IconButton(
@@ -99,7 +99,7 @@ class CallSection extends StatelessWidget {
                 },
                 icon: const Icon(
                   Icons.block,
-                  color: Colors.green,
+                  color: Colors.black
                 ),
               ),
             ],
