@@ -70,10 +70,24 @@ class CallLogItem extends StatelessWidget {
           PopupMenuItem(child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: ListTile(
-              leading: Text("Call",style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300
-              ),),trailing:  IconButton(
+              leading: GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri(
+                    scheme: 'tel',
+                    path: "${(currentCallLog!.number!.toString())}",
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+                child: Text("Call",style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300
+                ),),
+              ),trailing:  IconButton(
               onPressed: () async {
                 final Uri url = Uri(
                   scheme: 'tel',
@@ -94,10 +108,26 @@ class CallLogItem extends StatelessWidget {
           PopupMenuItem(child: Padding(
     padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: ListTile(
-              leading:Text("SMS",style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300
-              ),),trailing: IconButton(
+              leading:GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri(
+                    scheme: 'sms',
+                    path: "${(currentCallLog!.number!.toString())}",
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+
+                child: Text("SMS",style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+
+                    fontWeight: FontWeight.w300
+                ),),
+              ),trailing: IconButton(
               onPressed: () async {
                 final Uri url = Uri(
                   scheme: 'sms',
@@ -120,6 +150,8 @@ class CallLogItem extends StatelessWidget {
             child: ListTile(
               leading:Text("Block",style: TextStyle(
                   fontSize: 17,
+                  color: Colors.white,
+
                   fontWeight: FontWeight.w300
               ),),trailing: IconButton(
               onPressed: () {
@@ -134,10 +166,19 @@ class CallLogItem extends StatelessWidget {
           PopupMenuItem(child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: ListTile(
-              leading:Text("Details",style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300
-              ),),trailing: IconButton(
+              leading:GestureDetector(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context){
+                    return CallLogDetailsScreen(callLog: currentCallLog!);
+                  }));
+                },
+                child: Text("Details",style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+
+                    fontWeight: FontWeight.w300
+                ),),
+              ),trailing: IconButton(
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute(builder: (context){
                   return CallLogDetailsScreen(callLog: currentCallLog!);
@@ -158,15 +199,3 @@ class CallLogItem extends StatelessWidget {
     );
   }
 }
-
-//            onPressed: () {
-//               if (currentCallLog != "" ) {
-//                 callNumber(currentCallLog!.number!.toString());
-//               } else {
-//                 ScaffoldMessenger.of(context).showSnackBar(
-//                   const SnackBar(
-//                     content: Text('No Number is available to call'),
-//                   ),
-//                 );
-//               }
-//             },

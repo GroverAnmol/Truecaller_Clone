@@ -45,10 +45,24 @@ class ContactsItem extends StatelessWidget {
           PopupMenuItem(child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: ListTile(
-              leading: Text("Call",style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300
-              )),trailing:  IconButton(
+              leading: GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri(
+                    scheme: 'tel',
+                    path: currentContact?.phones?.elementAt(0).value.toString(),
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+                child: Text("Call",style: TextStyle(
+                    fontSize: 17,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w300
+                )),
+              ),trailing:  IconButton(
               onPressed: () async {
                 final Uri url = Uri(
                   scheme: 'tel',
@@ -69,10 +83,25 @@ class ContactsItem extends StatelessWidget {
           PopupMenuItem(child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 0, 8, 0),
             child: ListTile(
-              leading:Text("SMS",style: TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w300
-              )),trailing: IconButton(
+              leading:GestureDetector(
+                onTap: () async {
+                  final Uri url = Uri(
+                    scheme: 'sms',
+                    path: currentContact?.phones?.elementAt(0).value.toString(),
+                  );
+                  if (await canLaunchUrl(url)){
+                    await launchUrl(url);
+                  }else{
+                    print('cannot launch');
+                  }
+                },
+
+                child: Text("SMS",style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w300
+                )),
+              ),trailing: IconButton(
                 onPressed: () async {
                   final Uri url = Uri(
                     scheme: 'sms',
@@ -95,6 +124,7 @@ class ContactsItem extends StatelessWidget {
             child: ListTile(
               leading:Text("Block",style: TextStyle(
                   fontSize: 17,
+                  color: Colors.white,
                   fontWeight: FontWeight.w300
               )),trailing: IconButton(
                 onPressed: () {
@@ -111,6 +141,7 @@ class ContactsItem extends StatelessWidget {
             child: ListTile(
               leading:Text("Details",style: TextStyle(
                   fontSize: 17,
+                  color: Colors.white,
                   fontWeight: FontWeight.w300
               )),trailing: IconButton(
                 onPressed: () {

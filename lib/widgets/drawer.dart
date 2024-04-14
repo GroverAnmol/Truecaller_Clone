@@ -12,16 +12,15 @@ class DrawerWid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Color(threeDotBGColor),
         child: ListView(
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text('Anmol',
+              accountName: Text('<user name>',
                 style: TextStyle(
                     color: Colors.black,
                     fontSize: 18.0
                 ),),
-              accountEmail: Text('mxxxxxx94@gmail.com',
+              accountEmail: Text('<user email@gmail.com>',
                 style: TextStyle(
                   color: Colors.black38,
                 ),),
@@ -40,7 +39,6 @@ class DrawerWid extends StatelessWidget {
               ],
               margin: EdgeInsets.only(top: 16.0,left: 8.0),
               decoration: BoxDecoration(
-                  color: Color(threeDotBGColor)
               ),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.blue.shade50,
@@ -56,8 +54,8 @@ class DrawerWid extends StatelessWidget {
                       border: Border.all(width:1.0,color: Colors.grey.shade400)
                   ),
                   child:ListTile(
-                    leading: FaIcon(FontAwesomeIcons.crown,color: Colors.yellowAccent,),
-                    title: Transform.translate(offset:Offset(-16,0),child: Text('Upgrade to Premium')),
+                    leading: FaIcon(FontAwesomeIcons.crown,color: Colors.amberAccent,),
+                    title: Transform.translate(offset:Offset(-16,0),child: Text('  Upgrade to Premium')),
                   )),
             ),
             DrawerTile(
@@ -69,13 +67,13 @@ class DrawerWid extends StatelessWidget {
               title: 'Manage Blocking',
             ),
             DrawerTile(
-              icon: FaIcon(FontAwesomeIcons.solidHeart,color: Colors.blue,),
+              icon: FaIcon(FontAwesomeIcons.solidHeart,color: Color(threeDotBGColor)),
               title: 'Finanicial News',
             ),
             DrawerTile(
                 icon: CircleAvatar(
                     radius: 12.0,
-                    backgroundColor: Colors.grey.shade800,
+                    backgroundColor: Color(threeDotBGColor),
                     child: FaIcon(FontAwesomeIcons.indianRupeeSign
                       ,color: Colors.white,size: 14.0,)),
                 title: 'Personal Loans'),
@@ -136,7 +134,7 @@ class _DrawerTileState extends State<DrawerTile> {
   Widget build(BuildContext context) { Widget trailText= widget.trailing == null?CircleAvatar(
     radius: 0,
     backgroundColor: Colors.transparent,
-  ):CircleAvatar(radius: 10.0,backgroundColor: Colors.blue,
+  ):CircleAvatar(radius: 10.0,backgroundColor: Color(threeDotBGColor),
     child: Text(widget.trailing,
       style: TextStyle(
           fontSize: 6.0,fontWeight: FontWeight.w600
